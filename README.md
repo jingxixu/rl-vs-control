@@ -9,11 +9,25 @@ Columbia University, New York, NY, United States<br>
 University of Pennsylvania, Philadelphia, PA, United States<br>
 [L4DC 2021](https://l4dc.ethz.ch/)
 
-### [Project Page](https://jxu.ai/rl-vs-control-web/) | [Arxiv](https://arxiv.org/abs/2011.02608)
+### [Project Page](https://jxu.ai/rl-vs-control-web/) | [Arxiv](https://arxiv.org/abs/2104.00827)
 
-![](imgs/cartpole.png)
+  <p align="left">
+  <img src="imgs/cartpole.png" width=600>
+  </p>
 
 ## Setup
+
+TBD
+
+## Perception Model
+
+TBD
+
+## Reinforcement Learning
+
+TBD
+
+## H Infinity Control
 
 TBD
 
