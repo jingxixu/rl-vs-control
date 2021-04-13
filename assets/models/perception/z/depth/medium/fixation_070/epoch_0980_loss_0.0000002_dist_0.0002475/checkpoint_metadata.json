@@ -1,0 +1,25 @@
+{
+    "epoch": 980,
+    "train_epoch_loss": 1.949385072316545e-06,
+    "train_epoch_error_distance": 0.0009866171316243709,
+    "test_epoch_loss": 1.568844198232e-07,
+    "test_epoch_error_distance": 0.000247480340488255,
+    "args": {
+        "dataset_path": "datasets/perception/medium/fixation_070",
+        "probabilistic": false,
+        "suffix": "medium",
+        "fixation": 0.7,
+        "resolution": "medium",
+        "seed": 10,
+        "no_cuda": false,
+        "batch_size": 256,
+        "test_batch_size": 256,
+        "epochs": 1000,
+        "log_dir": "logs/perception/medium/2020-11-08_20-37-02_medium",
+        "save_dir": "models/perception/medium/2020-11-08_20-37-02_medium",
+        "split": 0.2,
+        "sample_size": null,
+        "lr": 0.001,
+        "rgb": false
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "epoch": 983,
+    "train_epoch_loss": 1.5119133490952664e-05,
+    "train_epoch_error_distance": 0.0029481995575129987,
+    "test_epoch_loss": 1.599166280066129e-05,
+    "test_epoch_error_distance": 0.0030025838732719422,
+    "args": {
+        "dataset_path": "datasets/perception/high/fixation_070",
+        "suffix": "high_07",
+        "fixation": 0.7,
+        "seed": 10,
+        "no_cuda": false,
+        "batch_size": 256,
+        "test_batch_size": 256,
+        "epochs": 1000,
+        "log_dir": "logs/perception/rgb/2020-11-09_20-05-51_high_07",
+        "save_dir": "models/perception/rgb/2020-11-09_20-05-51_high_07",
+        "split": 0.2,
+        "sample_size": null,
+        "lr": 0.0001,
+        "rgb": true,
+        "probabilistic": false,
+        "resolution": "high"
+    }
+}
