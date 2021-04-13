@@ -56,7 +56,7 @@ To train the perception model with RGB images, run
 python train_perception_model --dataset_path [DATASET_PATH] --fixation [FIXATION] --rgb
 ```
 
-We have provided you with the already trained perception model checkpoints for you to use directly in `assets/models/perception/z/`.
+We have provided you with the already trained perception model checkpoints for you to use directly in `assets/models/perception/`.
 
 ## Reinforcement Learning
 

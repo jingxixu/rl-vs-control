@@ -68,8 +68,6 @@ def get_args():
     parser.add_argument('--resolution', type=str, default='high')
     parser.add_argument('--probabilistic', action='store_true', default=False)
     parser.add_argument('--rgb', action='store_true', default=False)
-    parser.add_argument('--append_actions_ob', action='store_true', default=False)
-    parser.add_argument('--delay', type=int, default=0)
 
     parser.add_argument('--rendering', action='store_true', default=False)
     parser.add_argument('--debug', action='store_true', default=False)
@@ -78,11 +76,6 @@ def get_args():
     parser.add_argument('--save_dir', type=str, default='models/rl_sac',
                         help='Directory path to save checkpoints (default: models/rl_sac)')
     parser.add_argument('--suffix', type=str)
-    parser.add_argument('--gravity', type=float, default=9.8)
-    parser.add_argument('--timestep', type=int, default=1,
-                        help='multiples of 1/240, default pybullet time step')
-    parser.add_argument('--duration', type=float, default=10,
-                        help='duration in seconds of this episode')
     args = parser.parse_args()
 
     args.timestr = time.strftime("%Y-%m-%d_%H-%M-%S")
@@ -102,7 +95,6 @@ def get_args():
     # modify alpha for rgb images
     if args.rgb:
         args.alpha = 0.01
-    args.max_ep_steps = round(args.duration / (args.timestep * 1/240))
     return args
 
 
@@ -115,7 +107,7 @@ if __name__ == "__main__":
     print()
 
     # Environment
-    mu.configure_pybullet(rendering=args.rendering, debug=args.debug, gravity=args.gravity)
+    mu.configure_pybullet(rendering=args.rendering, debug=args.debug)
     height, width, height_after, width_after = mu.map_resolution(args.resolution)
     env = mu.make_cart_pole_env(fixation=args.fixation,
                                 ob_type=args.ob_type,
@@ -124,10 +116,7 @@ if __name__ == "__main__":
                                 model_path=args.perception_model_path,
                                 probabilistic=args.probabilistic,
                                 rgb=args.rgb,
-                                img_size=(height, width),
-                                delay=args.delay,
-                                append_actions_ob=args.append_actions_ob,
-                                timestep=args.timestep)
+                                img_size=(height, width))
 
     # this seed does not seem to make each run (training curve) identical
     torch.manual_seed(args.seed)
