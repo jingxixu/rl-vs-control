@@ -1,9 +1,13 @@
 import gym
-from PPO_discrete import PPO, Memory
+#from PPO_discrete import PPO, Memory
 from PIL import Image
 import torch
-import misc_utils as mu
 import os
+import sys
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+import misc_utils as mu
 import argparse
 import time
 import numpy as np
@@ -13,8 +17,6 @@ from scipy.io import loadmat
 import pprint
 
 
-""" Collect data for sysid. The output (states / observations) has to come first and the input (action) """
-
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -23,7 +25,7 @@ def get_args():
     parser.add_argument('--realtime', action='store_true', default=False)
 
     parser.add_argument('--full_state', type=bool, default=False)
-    #parser.add_argument('--ob_type', type = str, default = 'z_sequence')
+    parser.add_argument('--ob_type', type = str, default = 'z_sequence')
     parser.add_argument('--pnoise', type = bool, default=False)
     parser.add_argument('--rgb', type=bool, default=False)
     parser.add_argument('--fixation', type=float, default=1.0)
@@ -37,6 +39,7 @@ def get_args():
     parser.add_argument('--save_fnm', type=str)
     parser.add_argument('--save_folder', type=str)
     parser.add_argument('--num_traj', type=int, default=10000)
+    parser.add_argument('--trial_number', type=int, default=0)
     #parser.add_argument('--seed', type=int, default = None)
 
     args = parser.parse_args()
@@ -57,7 +60,7 @@ def get_args():
         args.save_fnm += '.mat'
 
     if args.save_folder is None:
-        args.save_folder = os.path.join("datasets", "sysid")
+        args.save_folder = os.path.join("control_experiment_data", "trial"+str(args.trial_number), "datasets", "sysid")
 
     args.perception_model_path = mu.get_perception_model_path(args.ob_type, args.fixation, rgb=args.rgb, resolution=args.resolution) \
         if args.pnoise else None
@@ -83,8 +86,8 @@ def test(args):
                                     ob_type=args.ob_type,
                                     pnoise=args.pnoise,
                                     model_path=args.perception_model_path,
-                                    rgb=args.rgb,
-                                    delay = args.delay) 
+                                    rgb=args.rgb
+                                ) 
 
     n_episodes = args.num_traj
     max_timesteps = 500
@@ -178,7 +181,7 @@ class Argument(object):
             raise TypeError( "%r is a frozen class" % self )
         object.__setattr__(self, key, value)
 
-def collect(fixation=1.0, ob_type='z_sequence', pnoise=False, rgb=False, num_traj = 10000, trial_number = 1, delay = 0, trial_type = "delay"):
+def collect(fixation=1.0, ob_type='z_sequence', pnoise=False, rgb=False, num_traj = 10000, trial_number = 0):
     args = Argument()
     args.fixation = fixation
     args.pnoise = pnoise
@@ -194,9 +197,7 @@ def collect(fixation=1.0, ob_type='z_sequence', pnoise=False, rgb=False, num_tra
     args.acion_noise = 0
     args.num_traj = num_traj
     args.action_noise = 0 
-    args.delay = delay
-    args.trial_type = trial_type
-    args.save_folder = os.path.join("control_experiment_data", "trial"+args.trial_type+str(trial_number), "datasets", "sysid")
+    args.save_folder = os.path.join("control_experiment_data", "trial"+str(trial_number), "datasets", "sysid")
     fixstr = mu.convert_float_to_fixstr(args.fixation)
     args.save_fnm = 'fix_'+fixstr+'_'+args.policy
     args.save_fnm += '_obtype_'+args.ob_type

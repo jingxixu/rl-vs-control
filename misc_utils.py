@@ -234,7 +234,7 @@ def make_cart_pole_env(fixation,
                        rgb=False,
                        delay=0,
                        append_actions_ob=False,
-                       timestep=1):
+                       timestep=5):
     """ Wrapper function for making the env with some default values for all scripts """
     from cartpole_env import CartPoleEnv
     if history_size is None:

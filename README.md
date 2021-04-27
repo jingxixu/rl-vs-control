@@ -82,8 +82,26 @@ python train_rl_sac.py --ob_type z_sequence --fixation [FIXATION] --pnoise --per
 
 ## H Infinity Control
 
-TBD
+To collect data for identification with the noise-free z percetion model, run
+```
+python collect_sysid_data.py --obtype z_sequence --fixation [FIXATION] --num_traj [NUM_TRAJ] --trial_number [TRIAL_NUMBER] 
+```
+To perform system idenfication on this data, run
+```
+python sysid --ob_type z_sequence --fixation [FIXATION] --trial_number [TRIAL_NUMBER] --id_horizon [ID_horizon] --amount_of_data [AMOUNT_OF_DATA]
+```
+To Synthesize an Hinfinity controller for this model, run
+```
+matlab -nodisplay -nodesktop -r "robust_control([FIXATION], 0, 0, 0, [CONTROL_PENALTY], [AMOUNT_OF_DATA], [TRIAL_NUMBER]); exit"
+```
+To evaluate the performance of this controller, run
+```
+python enjoy_hinf_controller --ob_type z_sequence --fixation [FIXATION] --trial_number [TRIAL_NUMBER] --id_horizon [ID_horizon] --amount_of_data [AMOUNT_OF_DATA]
+```
 
+To complete the above tasks with the depth image percetion model, add --pnoise to each of the above python commands, and the change the third argument to a one in the MATLAB command.
+
+To complete the above tasks with the rgb image perception model, add --pnoise --rgb to each of the above python commands, and set the third and fourth arguments in the MATLAB command to one. 
 ## Citation
 
 ```
